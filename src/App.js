@@ -8,6 +8,7 @@ import Layout from './components/Layout';
 import About from './components/About';
 import Home from './components/Home';
 import PostTitles from './components/PostTitles';
+import NotFound from './components/NotFound';
 
 function App() {
 const[posts, setPosts]=useState([])
@@ -27,6 +28,7 @@ useEffect(()=>{
           <Route path='/posts' element={<PostTitles data={posts}/> }/>
           <Route path='/posts/:id' element={<Posts/> }/>
           <Route path='/about' element={<About/>}/>
+          <Route path='*' element={<NotFound/>}/>
         </Route>
         </Routes>     
     </div>

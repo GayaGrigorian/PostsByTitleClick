@@ -3,8 +3,8 @@ import {useEffect,useMemo,useState,} from "react";
 
 function Login(){
     const [email , setEmail] = useState("");     
-    const [userId,setUserId]=useState("");
     const [data, setData]= useState([]);
+    const [user, setUser]= useState(localStorage.getItem("user")?JSON.parse( localStorage.getItem( "user")):null)
 
     const onHandleChange = (e)=>{
         setEmail(e.target.value)
@@ -18,35 +18,33 @@ function Login(){
 
 
     function handleSubmit(){
-        const result = data.map((user)=>
-            user.email === email? true:false 
+        const result = data.find((user)=>
+            user.email === email 
         )
-        return result.includes(true)
-            ?setUserId(data[result.indexOf(true)].id)
-            :alert("Enter a valid username/password")           
+        if (result=== -1){
+            alert("Enter a valid username/password")           
+        }else{
+            setUser(result)
+           localStorage.setItem("user", JSON.stringify(result) )
+        }
+           
     }
-
-
-    const userName=useMemo(()=>{
-        return userId===""? "": data[userId-1].username
-    },[userId])
 
     return(
          <div className="container">  
          <header className="header">
-         {!Object.keys(userName).length ? (
+        {!user ? (
             <>
              <input  type="email" value={email} onChange={onHandleChange}/>
              <button type="submit" onClick={handleSubmit}>Login</button>
              </>
             ):(
             <>  
-             <div className="userName">{userName}</div> 
+             <div className="userName">{user.username}</div> 
              </> 
          )}
         </header> 
-        </div>
-        
+        </div> 
         
     );
 }  
