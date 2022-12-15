@@ -29,6 +29,11 @@ function Login(){
         }
            
     }
+    
+     function handleClick(){
+        setUser(null)
+        setEmail("")
+     }
 
     return(
          <div className="container">  
@@ -40,7 +45,8 @@ function Login(){
              </>
             ):(
             <>  
-             <div className="userName">{user.username}</div> 
+             <div className="userName">{user.username}</div>
+             <button onClick={handleClick} className="logout">Logout</button>
              </> 
          )}
         </header> 
